@@ -1,0 +1,75 @@
+C51 COMPILER V9.52.0.0   OVER_CAR                                                          04/09/2016 11:00:10 PAGE 1   
+
+
+C51 COMPILER V9.52.0.0, COMPILATION OF MODULE OVER_CAR
+OBJECT MODULE PLACED IN over_car.OBJ
+COMPILER INVOKED BY: F:\Keil\C51\BIN\C51.EXE over_car.c LARGE BROWSE DEBUG OBJECTEXTEND TABS(2)
+
+line level    source
+
+   1          #include "config.h"
+   2          //******************外部变量引用********************************/
+   3          extern u8 time_counter;//timer0 计数
+   4          extern u8 line_counter;//黑线 计数
+   5          extern u8 time1_counter;//timer1 计数
+   6          extern bit update_flag;//timer0 计数标记
+   7          extern bit tl_flag;//0正常前行 1 turn left
+   8          extern bit over_flag; //
+   9          extern u8 g;//0为前车 1为后车
+  10          
+  11          /**********************超车处理函数*******************************/
+  12          void over_car()
+  13          {
+  14   1        switch (g)
+  15   1        {
+  16   2          //前车
+  17   2          case 0:
+  18   2          {
+  19   3              //继续前进直至碰到右线
+  20   3            while(TLIN != 0x01) ;
+  21   3            pwm_leftback(speed);
+  22   3            delay_ms(500);
+  23   3            pwm_leftback(0);
+  24   3            stop();
+  25   3            while(k!=1);            //前方未检测到后车
+  26   3            forward();              //恢复前进
+  27   3            
+  28   3            
+  29   3            break; 
+  30   3          }
+  31   2          //后车    
+  32   2          case 1: 
+  33   2          {
+  34   3            while(TLIN != 0x02)
+  35   3            {
+  36   4              pwm_left(0);
+  37   4            }
+  38   3            adjust_right();
+  39   3            
+  40   3            delay_ms(1000);
+  41   3            while(TLIN != 0x02)
+  42   3            {
+  43   4              pwm_left(0);
+  44   4            }
+  45   3            
+  46   3            
+  47   3            break;
+  48   3          }
+  49   2        }
+  50   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =     72    ----
+   CONSTANT SIZE    =   ----    ----
+C51 COMPILER V9.52.0.0   OVER_CAR                                                          04/09/2016 11:00:10 PAGE 2   
+
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

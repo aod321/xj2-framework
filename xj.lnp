@@ -1,0 +1,13 @@
+"main.obj",
+"pwm.obj",
+"timer.obj",
+"Exti.obj",
+"Lcd.obj",
+"line_count.obj",
+"over_car.obj",
+"config.obj",
+"check.obj",
+"inline.obj",
+"direction.obj" 
+TO "xj" 
+RAMSIZE(256) 

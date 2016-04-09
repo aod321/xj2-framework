@@ -1,0 +1,64 @@
+C51 COMPILER V9.52.0.0   INLINE                                                            04/09/2016 11:00:11 PAGE 1   
+
+
+C51 COMPILER V9.52.0.0, COMPILATION OF MODULE INLINE
+OBJECT MODULE PLACED IN inline.OBJ
+COMPILER INVOKED BY: F:\Keil\C51\BIN\C51.EXE inline.c LARGE BROWSE DEBUG OBJECTEXTEND TABS(2)
+
+line level    source
+
+   1          #include "config.h"
+   2          extern bit update_flag;//timer0 计数标记
+   3          extern bit tl_flag;//0正常前行 1 turn left
+   4          extern bit over_flag; //
+   5          u16 timer1_reg=65536UL - (MAIN_Fosc/40UL);
+   6          
+   7          void Inline()   //检测黑线信号，检测到黑线时变为高电平，平时低电平
+   8          {
+   9   1        Line_Count();
+  10   1        if(tl_flag)
+  11   1        {
+  12   2          //左转，定时器1控制左转时间
+  13   2          pwm_left(0);
+  14   2          pwm_right(speed);
+  15   2          
+  16   2          TR1=0;
+  17   2          TH1 = (u8)(timer1_reg>> 8);
+  18   2          TL1 = (u8)timer1_reg;
+  19   2          TR1=1;
+  20   2          tl_flag=0;
+  21   2        }
+  22   1        
+  23   1        switch(TLIN)
+  24   1        {
+  25   2          //没检测到黑线时，直行
+  26   2          case 0x00:    forward();                  break;
+  27   2          
+  28   2          //右边检测到黑线时,左转
+  29   2          case 0x01:  adjust_left();                break;
+  30   2          
+  31   2          //左边检测到黑线时，右转
+  32   2          case 0x02:    adjust_right();             break;
+  33   2              
+  34   2          //不可能
+  35   2          case 0x03:     forward();                 break;
+  36   2          
+  37   2      //
+  38   2          default:  break;
+  39   2        }
+  40   1      
+  41   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =     64    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =      2    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

@@ -1,0 +1,32 @@
+C51 COMPILER V9.52.0.0   CONFIG                                                            04/09/2016 11:00:11 PAGE 1   
+
+
+C51 COMPILER V9.52.0.0, COMPILATION OF MODULE CONFIG
+OBJECT MODULE PLACED IN config.OBJ
+COMPILER INVOKED BY: F:\Keil\C51\BIN\C51.EXE config.c LARGE BROWSE DEBUG OBJECTEXTEND TABS(2)
+
+line level    source
+
+   1          #include "config.h"
+   2          //***************全局变量定义**************************************/
+   3          extern u8 time_counter=0;//timer0 计数
+   4          extern u8 line_counter=0;//黑线 计数
+   5          extern u8 time1_counter=0;//timer1 计数
+   6          extern bit update_flag=0;//timer0 计数标记
+   7          extern bit tl_flag=0;//0正常前行 1 turn left
+   8          extern bit over_flag=0; //超车标志位
+   9          extern u8 g=0;//0为前车 1为后车
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =   ----    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =      4    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =      3    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

@@ -1,0 +1,35 @@
+C51 COMPILER V9.52.0.0   CHECK                                                             04/09/2016 11:00:11 PAGE 1   
+
+
+C51 COMPILER V9.52.0.0, COMPILATION OF MODULE CHECK
+OBJECT MODULE PLACED IN check.OBJ
+COMPILER INVOKED BY: F:\Keil\C51\BIN\C51.EXE check.c LARGE BROWSE DEBUG OBJECTEXTEND TABS(2)
+
+line level    source
+
+   1          #include "config.h"
+   2          /*****************************超声波检测前面是否有小车*******************************/
+   3          extern u8 g;//0为前车 1为后车
+   4          
+   5          void check()
+   6          {
+   7   1        if(k==1)
+   8   1          g=1;
+   9   1        else 
+  10   1          g=0;
+  11   1      }
+  12          
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =     16    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)
