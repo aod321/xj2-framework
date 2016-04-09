@@ -1,3 +1,5 @@
+//*****************循迹模块********************************/
+
 #include "config.h"
 extern bit update_flag;//timer0 计数标记
 extern bit tl_flag;//0正常前行 1 turn left
