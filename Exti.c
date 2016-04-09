@@ -26,6 +26,7 @@ extern u8 line_counter;//黑线 计数
 extern u8 time_counter1;//timer1 计数
 extern bit update_flag;//timer1 计时标记
 extern bit tl_flag;
+extern bit over_flag; //
 
 /********************* INT0中断函数 *************************/
 void Ext_INT0 (void) interrupt INT0_VECTOR		//进中断时已经清除标志
@@ -33,8 +34,10 @@ void Ext_INT0 (void) interrupt INT0_VECTOR		//进中断时已经清除标志
 //	P00 = ~P00;
 	u16 temp=65536UL - (MAIN_Fosc / 40UL);
 	line_counter++;													//黑线计数加1
-	if(line_counter==1)//第一次压线
+	if(line_counter==1 && over_flag!=1)//第一次压线且非超车模式
 	tl_flag=1;//左转标志位置1
+	else
+	tl_flag=0;
 	TR0=0;
 	TH0 = (u8)(temp>> 8);
 	TL0 = (u8)temp;

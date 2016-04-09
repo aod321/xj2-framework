@@ -33,7 +33,7 @@ void Inline()		//检测黑线信号，检测到黑线时变为高电平，平时低电平
 		//左边检测到黑线时，右转
 		case 0x02: 		adjust_right(); 						break;
 				
-		//不可能
+		//左右两边都检测到
 		case 0x03: 		 forward(); 								break;
 		
 //

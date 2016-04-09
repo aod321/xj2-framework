@@ -19,13 +19,15 @@ void over_car()
 		case 0:
 		{
 				//继续前进直至碰到右线
-			while(TLIN != 0x01)	;
-			pwm_leftback(speed);
-			delay_ms(500);
-			pwm_leftback(0);
-			stop();
-			while(k!=1);						//前方未检测到后车
+			while(TLIN != 0x01) ;
+			pwm_leftback(speed);					//反转左轮，原地调整角度
+			delay_ms(500);		
+			pwm_left(speed);							//左轮停止反转							
+			stop();												//车头调直以后停车
+			while(k!=1);						//未检测到前方有车
+			
 			forward();							//恢复前进
+			over_flag=0;						//超车模式结束
 			
 			
 			break; 
@@ -33,17 +35,21 @@ void over_car()
 		//后车		
 		case 1:	
 		{
-			while(TLIN != 0x02)
-			{
-				pwm_left(0);
-			}
-			adjust_right();
+				forward();
+				pwm_left(speed);						//调试得出该速度可以转进超车区
+				delay_ms(2000);							//时间待调试
+				forward();	
+				while(TLIN != 0x01)							//右边未压线
+				{
+					pwm_right(speed-28);			//右转			待调试得出一个撞线的适合角度
+				}
+				over_flag=0;										//超车模式结束
+				
+//				forward();										//停止反转恢复前行
+//			delay_ms(400);									//前进400毫秒后
+////			pwm_
 			
-			delay_ms(1000);
-			while(TLIN != 0x02)
-			{
-				pwm_left(0);
-			}
+			
 			
 			
 			break;

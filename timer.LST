@@ -1,4 +1,4 @@
-C51 COMPILER V9.52.0.0   TIMER                                                             04/09/2016 11:00:10 PAGE 1   
+C51 COMPILER V9.52.0.0   TIMER                                                             04/09/2016 13:05:48 PAGE 1   
 
 
 C51 COMPILER V9.52.0.0, COMPILATION OF MODULE TIMER
@@ -62,7 +62,7 @@ line level    source
   52   1        TIM_InitStructure.TIM_Polity    = PolityLow;      //指定中断优先级, PolityHigh,PolityLow
   53   1        TIM_InitStructure.TIM_Interrupt = ENABLE;       //中断是否允许,   ENABLE或DISABLE
   54   1        TIM_InitStructure.TIM_ClkSource = TIM_CLOCK_1T;     //指定时钟源,     TIM_CLOCK_1T,TIM_CLOCK_12T,TIM_CLOCK_
-C51 COMPILER V9.52.0.0   TIMER                                                             04/09/2016 11:00:10 PAGE 2   
+C51 COMPILER V9.52.0.0   TIMER                                                             04/09/2016 13:05:48 PAGE 2   
 
              -Ext
   55   1        TIM_InitStructure.TIM_ClkOut    = DISABLE;        //是否输出高速脉冲, ENABLE或DISABLE
@@ -126,7 +126,7 @@ line level    source
  109   2          TL0 = (u8)TIMx->TIM_Value;
  110   2          if(TIMx->TIM_Run == ENABLE) TR0 = 1;  //开始运行
  111   2          return  0;    //成功
-C51 COMPILER V9.52.0.0   TIMER                                                             04/09/2016 11:00:10 PAGE 3   
+C51 COMPILER V9.52.0.0   TIMER                                                             04/09/2016 13:05:48 PAGE 3   
 
  112   2        }
  113   1      

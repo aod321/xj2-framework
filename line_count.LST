@@ -1,4 +1,4 @@
-C51 COMPILER V9.52.0.0   LINE_COUNT                                                        04/09/2016 11:00:10 PAGE 1   
+C51 COMPILER V9.52.0.0   LINE_COUNT                                                        04/09/2016 13:05:48 PAGE 1   
 
 
 C51 COMPILER V9.52.0.0, COMPILATION OF MODULE LINE_COUNT
@@ -7,33 +7,34 @@ COMPILER INVOKED BY: F:\Keil\C51\BIN\C51.EXE line_count.c LARGE BROWSE DEBUG OBJ
 
 line level    source
 
-   1          #include "config.h"
-   2          //******************外部变量引用********************************/
-   3          extern u8 time_counter;//timer0 计数
-   4          extern u8 line_counter;//黑线 计数
-   5          extern u8 time1_counter;//timer1 计数
-   6          extern bit update_flag;//timer0 计数标记
-   7          extern bit tl_flag;//0正常前行 1 turn left
-   8          extern bit over_flag; //
-   9          extern u8 g;//0为前车 1为后车
-  10          void Line_Count()           //检测黑线条数
-  11          {
-  12   1        if(update_flag==1)            //定时1s到
-  13   1          {
-  14   2            update_flag=0;            //标记位清空
-  15   2      //      if(line_counter <=1)        //如果该时间内没有第二根线
-  16   2      //      {
-  17   2              line_counter=0;           //黑线数量清空
-  18   2              tl_flag=0;      
-  19   2              TR0=0;                    //关闭计时器
-  20   2      //      }
-  21   2          }
-  22   1          if(line_counter >=3)            //超车标志线
-  23   1          {
-  24   2            over_flag=1;//超车标志位置1
-  25   2            over_car();
-  26   2          }
-  27   1      }
+   1          //******************标记线计数模块********************************/
+   2          #include "config.h"
+   3          //******************外部变量引用********************************/
+   4          extern u8 time_counter;//timer0 计数
+   5          extern u8 line_counter;//黑线 计数
+   6          extern u8 time1_counter;//timer1 计数
+   7          extern bit update_flag;//timer0 计数标记
+   8          extern bit tl_flag;//0正常前行 1 turn left
+   9          extern bit over_flag; //
+  10          extern u8 g;//0为前车 1为后车
+  11          void Line_Count()           //检测黑线条数
+  12          {
+  13   1        if(update_flag==1)            //定时1s到
+  14   1          {
+  15   2            update_flag=0;            //标记位清空
+  16   2      //      if(line_counter <=1)        //如果该时间内没有第二根线
+  17   2      //      {
+  18   2              line_counter=0;           //黑线数量清空
+  19   2              tl_flag=0;      
+  20   2              TR0=0;                    //关闭计时器
+  21   2      //      }
+  22   2          }
+  23   1          if(line_counter >=3)            //超车标志线
+  24   1          {
+  25   2            over_flag=1;//超车标志位置1
+  26   2            over_car();
+  27   2          }
+  28   1      }
 
 
 MODULE INFORMATION:   STATIC OVERLAYABLE

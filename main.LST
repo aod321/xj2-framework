@@ -1,4 +1,4 @@
-C51 COMPILER V9.52.0.0   MAIN                                                              04/09/2016 11:00:09 PAGE 1   
+C51 COMPILER V9.52.0.0   MAIN                                                              04/09/2016 13:05:47 PAGE 1   
 
 
 C51 COMPILER V9.52.0.0, COMPILATION OF MODULE MAIN
@@ -7,77 +7,68 @@ COMPILER INVOKED BY: F:\Keil\C51\BIN\C51.EXE main.c LARGE BROWSE DEBUG OBJECTEXT
 
 line level    source
 
-   1          
-   2          #include "config.h"
-   3          
-   4          //******************外部变量引用********************************/
-   5          extern u8 time_counter;//timer0 计数
-   6          extern u8 line_counter;//黑线 计数
-   7          extern u8 time1_counter;//timer1 计数
-   8          extern bit update_flag;//timer0 计数标记
-   9          extern bit tl_flag;//0正常前行 1 turn left
-  10          extern bit over_flag; //
-  11          extern u8 g;//0为前车 1为后车
-  12          /*************************************************************/
-  13          //电机模块管脚
-  14          //将右电机信号线接P25 pwm0
-  15          //将左电机信号线接P26 pwm1
-  16          //将左反转信号线接P27 pwm2
-  17          
-  18          
-  19          
-  20          //压线标志位
-  21          bit L1=0;//最右侧标志位
-  22          bit L2=0;//最左侧标志位
-  23          //bit L3=0;
-  24          //bit L4=0;
-  25          
-  26          u8 flag=0;
-  27          
-  28          
-  29          
-  30          
-  31          
-  32          /*************************主函数***********************************/
-  33          void main()
-  34          { 
-  35   1        char dis_code[10]={"---cm"};
-  36   1        Initialize_LCD();// init LCD1602
-  37   1        PCA_Init();//pwm初始化
-  38   1        Timer_config();
-  39   1        EXTI_config();
-  40   1        EA=1;
+   1          #include "config.h"
+   2          //*****************s*外部变量引用********************************/
+   3          extern u8 time_counter;//timer0 计数
+   4          extern u8 line_counter;//黑线 计数
+   5          extern u8 time1_counter;//timer1 计数
+   6          extern bit update_flag;//timer0 计数标记
+   7          extern bit tl_flag;//0正常前行 1 turn left
+   8          extern bit over_flag; //
+   9          extern u8 g;//0为前车 1为后车
+  10          /*************************说明*********************************/
+  11          //电机模块管脚
+  12          //将右电机信号线接P25 pwm0
+  13          //将左电机信号线接P26 pwm1
+  14          //将左反转信号线接P27 pwm2
+  15          //中间红外线循迹灯接P3^2  INT0 为下降沿外部中断用于标记线计数
+  16          //红外循迹,左侧接P0^1 右侧P0^2
+  17          /**************************************************************/
+  18          //压线标志位
+  19          bit L1=0;//最左侧标志位
+  20          bit L2=0;//最右侧标志位
+  21          //bit L3=0;
+  22          //bit L4=0;
+  23          
+  24          u8 flag=0;
+  25          /*************************主函数***********************************/
+  26          void main()
+  27          { 
+  28   1        char dis_code[10]={"---cm"};
+  29   1        Initialize_LCD();// init LCD1602
+  30   1        PCA_Init();//pwm初始化
+  31   1        Timer_config();
+  32   1      //  EXTI_config();
+  33   1        EA=1;
+  34   1        P27=0;
+  35   1        P45=0;
+  36   1        check();//初始化检测前方小车
+  37   1        forward(); //直行
+  38   1      
+  39   1        ClearLine(1);                 //LCD删行
+  40   1        ClearLine(2);
   41   1      
-  42   1        check();//初始化检测前方小车
-  43   1        forward(); //直行
-  44   1      
-  45   1        ClearLine(1);                 //LCD删行
-  46   1        ClearLine(2);
-  47   1      
-  48   1        //调试用 1-255
-  49   1        delay_ms(200);
-  50   1              PutString(1,1,"Line_counter:");       //LCD显示   
-  51   1      
-  52   1          WriteChar(1,7,line_counter);
-  53   1          PutString(2,1,dis_code);
-  54   1      //    PutString(2,7,"mode:");
-  55   1        while(1)
-C51 COMPILER V9.52.0.0   MAIN                                                              04/09/2016 11:00:09 PAGE 2   
+  42   1        //调试用 1-255
+  43   1        delay_ms(200);
+  44   1              PutString(1,1,"Line_counter:");       //LCD显示   
+  45   1      
+  46   1          WriteChar(1,7,line_counter);
+  47   1          PutString(2,1,dis_code);
+  48   1      //    PutString(2,7,"mode:");
+  49   1        while(1)
+  50   1        { 
+  51   2          pwm_leftback(speed);
+  52   2      //    Inline();
+  53   2         }
+  54   1       }
+  55          
+C51 COMPILER V9.52.0.0   MAIN                                                              04/09/2016 13:05:47 PAGE 2   
 
-  56   1        { 
-  57   2      
-  58   2          Inline();
-  59   2        //  pwm_left(speed);
-  60   2        //  pwm_right(0);
-  61   2      
-  62   2         }
-  63   1       }
-  64          
-  65          
+  56          
 
 
 MODULE INFORMATION:   STATIC OVERLAYABLE
-   CODE SIZE        =     97    ----
+   CODE SIZE        =    100    ----
    CONSTANT SIZE    =     24    ----
    XDATA SIZE       =      1      10
    PDATA SIZE       =   ----    ----

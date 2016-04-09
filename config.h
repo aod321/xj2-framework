@@ -41,7 +41,9 @@ sbit k =P1^6;//定义红外开关输入端口
  #ifndef speed
 #define speed 120//正常行驶速度 0-255
 #endif
-
+ #ifndef Lspeed
+#define speed 140//正常行驶速度 0-255
+#endif
 #ifndef u8
 #define u8 unsigned char
 #endif

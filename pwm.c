@@ -95,11 +95,15 @@ void PWMn_Update(u8 PCA_id, u16 pwm)
 void stop() {pwm_left(0);	pwm_right(0);	pwm_leftback(0);}  
 void	pwm_leftback(u8 highpwm) //
 {
+	if (highpwm !=0)
+	pwm_left(0);
 	PWMn_Update(PCA2,highpwm);
 }
 
 void	pwm_left(u8 highpwm)//最小值PWM_HIGH_MIN  最大值PWM_HIGH_MAX
 {
+		if (highpwm !=0)
+	pwm_leftback(0);
 	PWMn_Update(PCA1,highpwm);
 }
 void	pwm_right(u8 highpwm)
